@@ -473,6 +473,24 @@
                 }
             });
         }
+
+        // "yiisoft/yii2-bootstrap"
+        var $hasCollapseBootstrap = $(widgetOptionsRoot.widgetItem).find('[data-toggle="collapse"]');
+        if($hasCollapseBootstrap.length > 0){
+            $hasCollapseBootstrap.each(function(){
+                var $this=$(this);
+                var $parentPanelHeaging = $this.parent().parent();
+                var $parentPanel = $parentPanelHeaging.parent();
+                var $parentGroup = $parentPanel.parent();
+                var parentGroupId = $parentGroup.attr('id');
+                var $collapsePanel = $parentPanel.find('[id^=' + parentGroupId + ']');
+                $this.data('parent', parentGroupId);
+                if($collapsePanel.length > 0){
+                    $this.attr('href', '#'+ $collapsePanel.attr('id'));
+                }
+                $parentGroup.collapse();
+            });
+        }
     };
 
 })(window.jQuery);
